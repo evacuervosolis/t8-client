@@ -7,24 +7,34 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = [
-]
-
-[tool.poetry]
-packages = [{include = "t8_client", from = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.13"
-requests = "^2.26"
-numpy = "^1.21"
-matplotlib = "^3.4"
-scipy = "^1.7"
-python-dotenv = "^0.19"
+numpy = "^2.2.4"
+requests = "^2.32.3"
+matplotlib = "^3.10.1"
+scipy = "^1.15.2"
+click = "^8.1.8"
+python-dotenv = "^1.0.1"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^6.2"
+pytest = "^8.3.5"
+ruff = "^0.11.0"
+pre-commit = "^4.2.0"
+argparse = "^1.4.0"
 
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle
+    "F",   # Pyflakes
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "SIM", # flake8-simplify
+    "I",   # isort
+]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+t8-client = "t8_client.main:main"
