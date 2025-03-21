@@ -64,3 +64,18 @@ def url_generator(type, machine, point, pmode, year, month, day, hour, minute, s
     url = f"{host}/rest/{type}/{machine}/{point}/{pmode}/{timestamp}"
 
     return url
+
+def save_array_to_csv(file_path, data, header=None):
+    if isinstance(data, list) and isinstance(data[0], (list, tuple)):
+        with open(file_path, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            if header:
+                writer.writerow([header])  # Escribir el encabezado, si existe
+                writer.writerows(data)  # Escribir todas las filas
+    elif isinstance(data, list) and isinstance(data[0], dict):
+            # Si los datos son una lista de diccionarios
+        with open(file_path, mode='w', newline='') as file:
+            writer = csv.DictWriter(file, fieldnames=data[0].keys())
+            if header:
+                writer.writeheader()
+                writer.writerows(data)
