@@ -195,7 +195,6 @@ def plot_spectrum_(ctx, machine, point, pmode, time):
     plt.grid(True)
     plt.show()
 
-# Ejecutar el CLI
+
 if __name__ == "__main__":
     main()
-
