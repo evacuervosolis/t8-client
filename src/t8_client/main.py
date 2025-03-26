@@ -1,11 +1,15 @@
 import os
+
 import click
 import matplotlib.pyplot as plt
-from module import save_array_to_csv
-from functions import get_waveform_list 
-from functions import get_spectrum_list
-from functions import get_wave
-from functions import get_spectrum
+
+from t8_client.functions import (
+    get_spectrum,
+    get_spectrum_list,
+    get_wave,
+    get_waveform_list,
+)
+from t8_client.module import save_array_to_csv
 
 
 @click.group()
