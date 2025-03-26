@@ -1,8 +1,11 @@
-from struct import unpack
+import csv
 from base64 import b64decode
+from datetime import datetime, timezone
+from struct import unpack
 from zlib import decompress
-from datetime import UTC, datetime, timezone
+
 import numpy as np
+
 
 def decode_and_convert_to_float(raw_data: str) -> np.ndarray:
     """
@@ -67,14 +70,14 @@ def url_generator(type, machine, point, pmode, year, month, day, hour, minute, s
 
 def save_array_to_csv(file_path, data, header=None):
     if isinstance(data, list) and isinstance(data[0], (list, tuple)):
-        with open(file_path, mode='w', newline='') as file:
+        with open(file_path, mode="w", newline="") as file:
             writer = csv.writer(file)
             if header:
                 writer.writerow([header])  # Escribir el encabezado, si existe
                 writer.writerows(data)  # Escribir todas las filas
     elif isinstance(data, list) and isinstance(data[0], dict):
             # Si los datos son una lista de diccionarios
-        with open(file_path, mode='w', newline='') as file:
+        with open(file_path, mode="w", newline="") as file:
             writer = csv.DictWriter(file, fieldnames=data[0].keys())
             if header:
                 writer.writeheader()
