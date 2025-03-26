@@ -1,29 +1,37 @@
 import numpy as np
 import requests
-import csv
-from module import decode_and_convert_to_float
-from module import convert_unix_to_iso, convert_iso_to_unix
+
+from t8_client.module import (
+    convert_iso_to_unix,
+    convert_unix_to_iso,
+    decode_and_convert_to_float,
+)
+
 
 def get_waveform_list(**params):
     """
-    This function is used to fetch a list of timestamps for wave data from a specified server and endpoint.
+    This function is used to fetch a list of timestamps for wave data from
+    a specified server and endpoint.
 
     Parameters:
         **params: A collection of named arguments (also known as keyword arguments).
             host (str): The URL of the server you are connecting to.
             id_ (str): The unique identifier for the endpoint you're accessing.
-            machine (str): The identifier for the machine from which data is being retrieved.
+            machine (str): The identifier for the machine from which data
+            is being retrieved.
             point (str): The identifier for the measurement point on the machine.
             pmode (str): The processing mode you're working with.
             t8_user (str): The username required to authenticate with the server.
-            t8_password (str): The password corresponding to the username for authentication.
+            t8_password (str): The password corresponding to the username
+             for authentication.
 
     Yields:
         str: ISO formatted timestamp string for each valid wave entry.
         This function generates (yields) timestamps one at a time as it fetches them.
 
     Raises:
-        Exception: If there is an issue with the request (e.g., the server fails to respond or returns an error),
+        Exception: If there is an issue with the request
+        (e.g., the server fails to respond or returns an error),
                    the function will raise an exception.
     """
     t8_host = params["t8_host"]
@@ -89,7 +97,8 @@ def get_wave(**params) -> tuple[np.ndarray, int]:
     Retrieves waveform data from a specified host.
 
     Arguments:
-        kwargs: A set of keyword arguments representing the URL parameters needed for the request.
+        kwargs: A set of keyword arguments representing the URL
+        parameters needed for the request.
 
     Returns:
         tuple[np.ndarray, int]: This function returns a tuple where:
