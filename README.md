@@ -6,8 +6,54 @@
 
 El objetivo de este proyecto es crear una aplicación que se conecte a la API del T8 y realice diversas acciones utilizando subcomandos. Los subcomandos incluyen la obtención de datos, su visualización y la conversión de la fecha.
 
+## Requisitos
 
-## Credenciales
+- Python 3.8 o superior
+- `poetry` para la gestión de dependencias
+
+## Instalación
+
+1. Crea un nuevo proyecto utilizando `poetry`:
+
+    ```bash
+    poetry new t8-client
+    cd t8-client
+    ```
+
+2. Agrega las dependencias necesarias para el proyecto, como `click`, `requests`, entre otras. Puedes hacer esto manualmente o utilizando `poetry add` para cada una. Ejemplo:
+
+    ```bash
+    poetry add click requests matplotlib
+    ```
+
+3. Instala las dependencias del proyecto ejecutando:
+
+    ```bash
+    poetry install
+    ```
+
+4. Verifica que la instalación fue correcta ejecutando el siguiente comando:
+
+    ```bash
+    poetry run t8-client --help
+    ```
+
+## Configuración de las Credenciales
+
+El proyecto utiliza las siguientes variables de entorno para acceder a la API de T8:
+
+- **T8_HOST**: La URL base de la API 
+- **T8_USER**: El nombre de usuario para autenticarte en la API.
+- **T8_PASSWORD**: La contraseña para autenticarte en la API.
+
+
+## Usando el archivo `.env` 
+
+Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
+
+T8_HOST=https://lzfs45.mirror.twave.io/lzfs45
+T8_USER=tu_usuario
+T8_PASSWORD=tu_contraseña
 
 El usuario, contraseña y host se leeran desde variables de entorno.
 
