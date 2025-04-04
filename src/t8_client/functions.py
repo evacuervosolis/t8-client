@@ -1,3 +1,5 @@
+from typing import Any
+
 import numpy as np
 import requests
 
@@ -7,8 +9,9 @@ from t8_client.module import (
     decode_and_convert_to_float,
 )
 
+HTTP_OK = 200
 
-def get_waveform_list(**params):
+def get_waveform_list(**params: dict[str, Any]) -> str:
     """
     This function is used to fetch a list of timestamps for wave data from
     a specified server and endpoint.
@@ -43,7 +46,7 @@ def get_waveform_list(**params):
 
     url = f"{t8_host}/rest/waves/{machine}/{point}/{pmode}"
     response = requests.get(url, auth=(t8_user, t8_password))
-    if response.status_code != 200:
+    if response.status_code != HTTP_OK:  # Usamos la constante HTTP_OK
         raise Exception(f"Failed to get waveform: {response.text}")
     response = response.json()
 
@@ -53,7 +56,7 @@ def get_waveform_list(**params):
             yield convert_unix_to_iso(timestamp)
 
 
-def get_spectrum_list(**params):
+def get_spectrum_list(**params: dict[str, Any]) -> str:
     """
     Retrieves a list of spectrums from a specified host and endpoint.
 
@@ -82,7 +85,7 @@ def get_spectrum_list(**params):
 
     url = f"{t8_host}/rest/spectra/{machine}/{point}/{pmode}"
     response = requests.get(url, auth=(t8_user, t8_password))
-    if response.status_code != 200:
+    if response.status_code != HTTP_OK:  # Usamos la constante HTTP_OK
         raise Exception(f"Failed to get spectra list: {response.text}")
     response = response.json()
 
@@ -92,7 +95,7 @@ def get_spectrum_list(**params):
             yield convert_unix_to_iso(timestamp)
 
 
-def get_wave(**params) -> tuple[np.ndarray, int]:
+def get_wave(**params: dict[str, Any]) -> tuple[np.ndarray, int]:
     """
     Retrieves waveform data from a specified host.
 
@@ -118,7 +121,7 @@ def get_wave(**params) -> tuple[np.ndarray, int]:
 
     url = f"{t8_host}/rest/waves/{machine}/{point}/{pmode}/{time}"
     response = requests.get(url, auth=(t8_user, t8_password))
-    if response.status_code != 200:
+    if response.status_code != HTTP_OK:  # Usamos la constante HTTP_OK
         raise Exception(f"Failed to get waveform: {response.text}")
     response = response.json()
 
@@ -129,16 +132,18 @@ def get_wave(**params) -> tuple[np.ndarray, int]:
     return waveform * factor, sample_rate
 
 
-def get_spectrum(**params) -> tuple[np.ndarray]:
+def get_spectrum(**params: dict[str, Any]) -> tuple[np.ndarray, float, float]:
     """
     Retrieves spectral data from a given host and endpoint.
 
     Arguments:
-        params: A collection of keyword arguments that represent the URL parameters for the request.
+        params: Keyword arguments that represent the URL parameters for the request.
 
     Returns:
-        tuple[np.ndarray]: A tuple where:
+        tuple[np.ndarray, float, float]: A tuple where:
             - The first element is a numpy array containing the spectral data.
+            - The second element is the minimum frequency.
+            - The third element is the maximum frequency.
 
     Raises:
         Exception: If the server request to fetch the spectral data fails.
@@ -153,7 +158,7 @@ def get_spectrum(**params) -> tuple[np.ndarray]:
 
     url = f"{t8_host}/rest/spectra/{machine}/{point}/{pmode}/{time}"
     response = requests.get(url, auth=(t8_user, t8_password))
-    if response.status_code != 200:
+    if response.status_code != HTTP_OK:  # Usamos la constante HTTP_OK
         raise Exception(f"Failed to get spectra: {response.text}")
     response = response.json()
 
@@ -163,3 +168,4 @@ def get_spectrum(**params) -> tuple[np.ndarray]:
     max_freq = response["max_freq"]
 
     return spectrum * factor, min_freq, max_freq
+
