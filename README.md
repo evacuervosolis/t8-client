@@ -51,7 +51,7 @@ El proyecto utiliza las siguientes variables de entorno para acceder a la API de
 
 Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
 
-T8_HOST=https://lzfs45.mirror.twave.io/lzfs45
+T8_HOST=tu_host
 T8_USER=tu_usuario
 T8_PASSWORD=tu_contraseña
 
